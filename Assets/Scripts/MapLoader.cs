@@ -11,10 +11,15 @@ public class MapLoader : MonoBehaviour
     [SerializeField]TMP_Dropdown Dropdown;
     [SerializeField] TMP_Text MapName;
     [SerializeField] TMP_Text MapDescription;
+    [SerializeField] TMP_InputField MapNameInput;
+    [SerializeField] TMP_InputField MapDescriptionInput;
+    [SerializeField] TMP_InputField Scale;
+    public static MapLoader Instance;
 
     private void Start()
     {
         RefreshMaps();
+        Instance = this;
     }
     private void OnApplicationFocus(bool focus)
     {
@@ -39,7 +44,32 @@ public class MapLoader : MonoBehaviour
     public void SelectMap()
     {
         GameController.Instance.LoadMap(AllMaps[Dropdown.value]);
-        MapName.text = AllMaps[Dropdown.value].Title;
-        MapDescription.text = AllMaps[Dropdown.value].Description;
+        UpdateText();
+    }
+    public void UpdateText()
+    {
+        if (GameController.Instance.EditMode)
+        {
+            MapNameInput.text = GameController.Instance.CurrentMap.Title;
+            MapDescriptionInput.text = GameController.Instance.CurrentMap.Description;
+            Scale.text = GameController.Instance.CurrentMap.BoardScale.ToString();
+        }
+        else
+        {
+            MapName.text = AllMaps[Dropdown.value].Title;
+            MapDescription.text = AllMaps[Dropdown.value].Description;
+
+        }
+    }
+    public void UpdateMapName()
+    {
+
+        GameController.Instance.CurrentMap.Title = MapNameInput.text;
+        GameController.Instance.CurrentMap.Description = MapDescriptionInput.text;
+    }
+    public void UpdateMapScale()
+    {
+        GameController.Instance.CurrentMap.BoardScale = float.Parse(Scale.text);
+        GameController.Instance.LoadMap(GameController.Instance.CurrentMap);
     }
 }

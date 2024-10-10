@@ -6,16 +6,26 @@ using Newtonsoft.Json;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using UnityEditor.MemoryProfiler;
 
 [System.Serializable]
 public class MapData
 {
     public string Title;
     public string Description;
-    public int Width = 4;
-    public int Height = 4;
-    public TileData[] Tiles;
+    public int Width;
+    public int Height;
+    public float BoardScale = 1f;
+    public List<TileData> Tiles;
+    public MapData(int Width = 4, int Height = 4)
+    {
+        this.Width = Width;
+        this.Height = Height;
+        Tiles = new List<TileData>();
+        for(int i = 0; i < Width * Height; i++)
+        {
+            Tiles.Add(new TileData());
+        }
+    }
 }
 public class GameController : MonoBehaviour
 {
@@ -30,6 +40,7 @@ public class GameController : MonoBehaviour
     [SerializeField] TMP_Text Result;
     public List<TileController> EdgeTiles = new List<TileController>();
     [SerializeField] GameObject PlayButton;
+    [SerializeField] Transform MapContainer;
 
     public bool EditMode;
     private void Start()
@@ -79,6 +90,7 @@ public class GameController : MonoBehaviour
     }
     IEnumerator FancyLoadMap(MapData Map)
     {
+        MapContainer.localScale = new Vector3(Map.BoardScale, 0, Map.BoardScale);
         CurrentMap = Map;
         if (Tiles != null)
         {
@@ -100,7 +112,8 @@ public class GameController : MonoBehaviour
         {
             for (int e = CurrentMap.Height - 1; e >= 0; e--)
             {
-                var TileScript = Instantiate(TilePrefab, new Vector3(i - OffsetX, 0, e - OffsetZ), Quaternion.identity).GetComponent<TileController>();
+                var TileScript = Instantiate(TilePrefab, MapContainer).GetComponent<TileController>();
+                TileScript.transform.localPosition = new Vector3(i - OffsetX, 0, e - OffsetZ);
 
                 TileScript.GridPosition = new Vector2(i, e);
                 if ((i == 0 || i == CurrentMap.Width - 1) || (e == 0 || e == CurrentMap.Height - 1))
@@ -109,7 +122,7 @@ public class GameController : MonoBehaviour
                     EdgeTiles.Add(TileScript);
 
                 }
-                yield return new WaitForSeconds(0.05f);
+                yield return null;
                 TileScript.AssignArrows(CurrentMap.Tiles[counter]);
                 Tiles.Add(TileScript.GridPosition, TileScript);
                 counter++;

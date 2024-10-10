@@ -3,6 +3,7 @@
   "Description": "When you have no strategy and only change true/false values at random",
   "Width": 4,
   "Height": 4,
+  "BoardScale": 1,
   "Tiles": [
     {
       "Arrows": [

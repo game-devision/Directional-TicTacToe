@@ -3,6 +3,7 @@
   "Description": "Yay",
   "Width": 4,
   "Height": 4,
+  "BoardScale": 1,
   "Tiles": [
     {
       "Arrows": [

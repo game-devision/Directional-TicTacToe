@@ -1,8 +1,9 @@
 {
   "Title": "Standard 1",
-  "Description": "The original map design by Zack.",
+  "Description": "The original 4x4 map design by Zack.",
   "Width": 4,
   "Height": 4,
+  "BoardScale": 1,
   "Tiles": [
     {
       "Arrows": [
