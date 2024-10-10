@@ -1,0 +1,200 @@
+{
+  "Title": "TC Test Map",
+  "Description": "When you have no strategy and only change true/false values at random",
+  "Width": 4,
+  "Height": 4,
+  "Tiles": [
+    {
+      "Arrows": [
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    },
+    {
+      "Arrows": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true
+      ]
+    }
+  ]
+}
