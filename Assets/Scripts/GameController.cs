@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour
     }
     IEnumerator FancyLoadMap(MapData Map)
     {
-        MapContainer.localScale = new Vector3(Map.BoardScale, 0, Map.BoardScale);
+        MapContainer.localScale = new Vector3(Map.BoardScale, 1, Map.BoardScale);
         CurrentMap = Map;
         if (Tiles != null)
         {
