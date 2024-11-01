@@ -27,11 +27,11 @@ public class MapLoader : MonoBehaviour
     }
     public void RefreshMaps()
     {
-        var Files = Directory.GetFiles($"{Application.streamingAssetsPath}/Maps", "*.json");
+        var Files = Resources.LoadAll<TextAsset>("Maps");
         AllMaps.Clear();
         foreach(var Path in Files) 
         {
-            AllMaps.Add(JsonUtility.FromJson<MapData>(File.ReadAllText(Path)));
+            AllMaps.Add(JsonUtility.FromJson<MapData>(Path.text));
         }
 
         Dropdown.ClearOptions();

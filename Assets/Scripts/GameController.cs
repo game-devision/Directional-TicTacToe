@@ -49,7 +49,9 @@ public class GameController : MonoBehaviour
     }
     public void ExportMap()
     {
-        File.WriteAllText($"{Application.streamingAssetsPath}/Maps/{CurrentMap.Title}.json", JsonConvert.SerializeObject(CurrentMap, Formatting.Indented));
+#if UNITY_EDITOR
+        File.WriteAllText($"Assets/Resources/Maps/{CurrentMap.Title}.json", JsonConvert.SerializeObject(CurrentMap, Formatting.Indented));
+#endif
     }
     public void StartGame()
     {
