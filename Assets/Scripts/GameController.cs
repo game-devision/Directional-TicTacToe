@@ -41,11 +41,16 @@ public class GameController : MonoBehaviour
     public List<TileController> EdgeTiles = new List<TileController>();
     [SerializeField] GameObject PlayButton;
     [SerializeField] Transform MapContainer;
+    public BotAI2 bot;
 
     public bool EditMode;
     private void Start()
     {
         GameController.Instance = this;
+        if(bot == null)
+        {
+            bot = GameObject.Find("Bot").GetComponent<BotAI2>();
+        }
     }
     public void ExportMap()
     {
@@ -67,6 +72,10 @@ public class GameController : MonoBehaviour
         TurnCount++;
         Oup.enabled = (TurnCount % 2 == 0);
         Xup.enabled = !(TurnCount % 2 == 0);
+        if(BotAI2.botEnabled == true)
+        {
+            bot.PlayTurn();
+        }
         CheckVictory();
     }
     public void CheckVictory()

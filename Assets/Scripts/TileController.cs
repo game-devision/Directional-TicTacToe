@@ -233,34 +233,49 @@ public class TileController : MonoBehaviour
         {
             if (State == SpaceState.None && GameController.Instance.GameStarted)
             {
-                if (GameController.Instance.TurnCount % 2 == 0)
+                if(BotAI2.botEnabled == false || BotAI2.botsTurn == false)
                 {
-                    State = SpaceState.O;
-                    ShapeO.SetActive(true);
-                    foreach (var Arrow in ArrowSprites)
+                    if (GameController.Instance.TurnCount % 2 == 0)
                     {
-                        if (Arrow.gameObject.activeSelf)
-                        {
-                            Arrow.color = Color.green;
-                        }
+                        SelectThisTile(SpaceState.O);
+                    }
+                    else
+                    {
+                        SelectThisTile(SpaceState.X);
                     }
                 }
-                else
-                {
-                    State = SpaceState.X;
-                    ShapeX.SetActive(true);
-                    foreach (var Arrow in ArrowSprites)
-                    {
-                        if (Arrow.gameObject.activeSelf)
-                        {
-                            Arrow.color = Color.red;
-                        }
-                    }
-                }
-                GameController.Instance.NextMove();
+                
+                
             }
 
         }
 
+    }
+    public void SelectThisTile(SpaceState type)
+    {
+        State = type;
+        if(type == SpaceState.O)
+        {
+            ShapeO.SetActive(true);
+            foreach (var Arrow in ArrowSprites)
+            {
+                if (Arrow.gameObject.activeSelf)
+                {
+                    Arrow.color = Color.green;
+                }
+            }
+        }
+        else if(type == SpaceState.X)
+        {
+            ShapeX.SetActive(true);
+            foreach (var Arrow in ArrowSprites)
+            {
+                if (Arrow.gameObject.activeSelf)
+                {
+                    Arrow.color = Color.red;
+                }
+            }
+        }
+        GameController.Instance.NextMove();
     }
 }
