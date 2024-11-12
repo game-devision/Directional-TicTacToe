@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
-using UnityEditor.MemoryProfiler;
 
 
 public class BotAI2 : MonoBehaviour
