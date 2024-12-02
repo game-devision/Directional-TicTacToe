@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
     [SerializeField] GameObject PlayButton;
     [SerializeField] Transform MapContainer;
     public BotAI2 bot;
+    [SerializeField] Animator SelectScreen;
 
     public bool EditMode;
     private void Start()
@@ -60,23 +61,25 @@ public class GameController : MonoBehaviour
     }
     public void StartGame()
     {
+        PostProcessController.Instance.ResetPostProcessing();
         LoadMap(CurrentMap);
         Result.text = string.Empty;
         GameStarted = true;
         PlayButton.SetActive(false);
         TurnCount = 0;
         NextMove();
+        SelectScreen.SetBool("InGame", true);
     }
     public void NextMove()
     {
         TurnCount++;
         Oup.enabled = (TurnCount % 2 == 0);
-        Xup.enabled = !(TurnCount % 2 == 0);
-        if(BotAI2.botEnabled == true)
+        Xup.enabled = !(TurnCount % 2 == 0);    
+        CheckVictory();
+        if (BotAI2.botEnabled == true)
         {
             bot.PlayTurn();
         }
-        CheckVictory();
     }
     public void CheckVictory()
     {
@@ -88,12 +91,32 @@ public class GameController : MonoBehaviour
             }
 
         }
-        if (TurnCount > 16 && GameStarted)
+        if (TurnCount > CurrentMap.Width * CurrentMap.Height && GameStarted)
         {
-            Result.text = "Out of moves";
+            Result.text = "DRAW";
             GameStarted = false;
             PlayButton.SetActive(true);
+
         }
+    }
+    public void EndGame()
+    {
+        StartCoroutine(GameEndSequence());
+    }
+    IEnumerator GameEndSequence()
+    {
+        float ElapsedTime = 0;
+        while(ElapsedTime <= 3f)
+        {
+            PostProcessController.Instance.SetValue(PostProcessController.PostProcessType.Bloom, Mathf.Lerp(4, 11, ElapsedTime/3f));
+            PostProcessController.Instance.SetValue(PostProcessController.PostProcessType.Vignette, Mathf.Lerp(0, 0.8f, ElapsedTime / 3f));
+            PostProcessController.Instance.SetValue(PostProcessController.PostProcessType.LensDistortion, Mathf.Lerp(0, -0.4f, ElapsedTime / 3f));
+            ElapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        yield return new WaitForSeconds(2f);
+        SelectScreen.SetBool("InGame", false);
+        Result.text = string.Empty;
     }
     public void LoadMap(MapData Map)
     {
@@ -193,9 +216,10 @@ public class GameController : MonoBehaviour
                         if (TargetEdges.Contains(Connection.EdgeType) && Connection != StartTile)
                         {
                             Debug.Log($"Tracing Complete for {StartTile.EdgeType}, result Success");
-                            Result.text = $"{Connection.State} wins";
+                            Result.text = $"{Connection.State} IS VICTORIOUS";
                             GameStarted = false;
                             PlayButton.SetActive(true);
+                            EndGame();
                             return;
                         }
                         if(!NextTiles.Contains(Connection) && Connection != StartTile && !AlreadyCheckedTiles.Contains(Connection))
