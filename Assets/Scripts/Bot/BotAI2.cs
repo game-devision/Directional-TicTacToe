@@ -10,6 +10,7 @@ using System.Linq;
 
 public class BotAI2 : MonoBehaviour
 {
+    public static BotAI2 Instance;
     public SpaceState type = SpaceState.O;
     public bool changesTeams = false;
     public static bool botEnabled = false;
@@ -20,6 +21,10 @@ public class BotAI2 : MonoBehaviour
     public List<TileController> OpenTiles = new List<TileController>();
     public List<float> TileWeights = new List<float>();
 
+    private void Start()
+    {
+        Instance = this;
+    }
     public void PlayTurn()
     {
         SpaceState currentTurnType;

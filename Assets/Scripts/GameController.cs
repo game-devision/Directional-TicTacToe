@@ -41,17 +41,12 @@ public class GameController : MonoBehaviour
     public List<TileController> EdgeTiles = new List<TileController>();
     [SerializeField] GameObject PlayButton;
     [SerializeField] Transform MapContainer;
-    public BotAI2 bot;
     [SerializeField] Animator SelectScreen;
 
     public bool EditMode;
     private void Start()
     {
         GameController.Instance = this;
-        if(bot == null)
-        {
-            bot = GameObject.Find("Bot").GetComponent<BotAI2>();
-        }
     }
     public void ExportMap()
     {
@@ -78,7 +73,7 @@ public class GameController : MonoBehaviour
         CheckVictory();
         if (BotAI2.botEnabled == true)
         {
-            bot.PlayTurn();
+            BotAI2.Instance.PlayTurn();
         }
     }
     public void CheckVictory()
